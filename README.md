@@ -16,7 +16,8 @@ Throughout this course we will build simple device 'hand cleaning machine' with 
 ## Sessions prepared
 
 
-1. Session 1. Project structure and out-of-order state
+1. Session.  Project structure and out-of-order state
+2. Session.  PWM control. FSM extension. Arbitrary signal generation
 
 ## Session 1. Project structure and out-of-order state
 
@@ -43,6 +44,24 @@ After this session you shall be able to answer following questions:
 
  + For those who cannot sleep at nights:
  - Can you propose the way instead of using our blinking function design it as configurable driver that could be reused for different purposes?
+
+| Session type | Duration |
+| ------ | ------ |
+| Theory | 1.5hour |
+| Practice | 2hour during shared session |
+| Self work | 2h-8h (depending on the choosen scenario) |
+
+
+## Session 2. Hardware accelerated items. STM32 timers and timer chaining. Injection signal generation.
+
+This session we go further with simple peripheral usage. How about doing simple dosing system that control dosing mechanism the way we control combustion engine injectors? This example we try to design the way to control the frequency of the arbitrary generated signals. We will try to play a little more with the hardware of STM32 to synchronize onboard timers to generate some hardware "accelerated" shapes - peak and hold controller.
+
+ - Our primary goal in this session is to create device that can mimic injector controller. We shall be able to achieve at least constant frequency triggered (continous mode or single mode) arbitrary signal generation.
+ - We can extend that with:
+    - extra calibration
+    - injection cycle counting
+    - estimation of totally dosed liquid (simple integration)
+    - DMA triggers
 
 | Session type | Duration |
 | ------ | ------ |
