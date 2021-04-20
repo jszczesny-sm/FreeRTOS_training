@@ -63,6 +63,10 @@ This session we go further with simple peripheral usage. How about doing simple 
     - estimation of totally dosed liquid (simple integration)
     - DMA triggers
 
+##20.Apr.2021 update.
+
+Recently I was able to prepare working exampled of timer usage in basic PWM operating mode. For those of you who would like to make some trial with that SW, please use injector_support branch. This second hands-on session will be a huge step forward with using C structures, function pointers, passing data by pointers, and some architectural pattern that we will utilize. Our goal is to create some common driver that could be exchanged within the group
+
 | Session type | Duration |
 | ------ | ------ |
 | Theory | 1.5hour |
