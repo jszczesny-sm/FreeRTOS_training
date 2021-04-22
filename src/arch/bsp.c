@@ -44,10 +44,10 @@ static void configure_system_clock()
 
 static void configure_led_gpios()
 {
-   rcc_periph_clock_enable(RCC_GPIOB);
+   rcc_periph_clock_enable(RCC_GPIOA);
    rcc_periph_clock_enable(RCC_GPIOC);
 
-   gpio_mode_setup(GPIOB,GPIO_MODE_OUTPUT,GPIO_PUPD_NONE,GPIO14);
+   gpio_mode_setup(GPIOA,GPIO_MODE_OUTPUT,GPIO_PUPD_NONE,GPIO5);
    gpio_mode_setup(GPIOC,GPIO_MODE_OUTPUT,GPIO_PUPD_NONE,GPIO9); 
 }
 

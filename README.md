@@ -72,3 +72,19 @@ Recently I was able to prepare working exampled of timer usage in basic PWM oper
 | Theory | 1.5hour |
 | Practice | 2hour during shared session |
 | Self work | 2h-8h (depending on the choosen scenario) |
+
+## Session 3. Sensors and external devices - communication interfaces (SPI,I2C,USART)
+
+This is 'breakthrough' session. In previous session we got familiarized with C language structural programming, we got the idea about microprocessors and microcontrollers, we went through state machines, basic RTOS usage and had some nice introduction into hardware accelerated peripheral handling. This time we want to spend some time on using wide range of i2c devices that will turn our project from fancy 'christmass tree' into the real device. Our goal will be to use accelerometer, pressure sensor, and gyroscope to collect information about device state. The most interesting part however will be taking advantage of laser distance measurement. We will for the first time turn our device into something useful.
+
+
+| Session type | Duration |
+| ------ | ------ |
+| Theory | 1.5hour |
+| Practice | 2hour during shared session |
+| Self work | 4h-20h (depending on the choosen scenario) |
+
+## Session 4. Hello world - we are online!
+
+Under construction
+

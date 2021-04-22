@@ -15,6 +15,7 @@ int _write(int fd, char *ptr, int len);
 void serial_setup()
 {
     rcc_periph_clock_enable(RCC_USART1);
+    rcc_periph_clock_enable(RCC_GPIOB);
 	gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO6);
     gpio_set_af(GPIOB, GPIO_AF7,GPIO6);
 
