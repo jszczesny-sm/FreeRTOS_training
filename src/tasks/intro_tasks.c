@@ -35,7 +35,6 @@ static void task_consumer_run( void * pvParameters )
     {
         ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
         vTaskDelay(CONSUMER_TASK_PERIOD_TICK);
-        printf("Hi with delay\n");
     }
 }
 
@@ -48,7 +47,7 @@ static void task_async_flasher_run(void* pvParameters)
     
     for ( ;; ) 
     {
-        gpio_toggle(GPIOB,GPIO14);
+        gpio_toggle(GPIOA,GPIO5);
         vTaskDelay(blinkInteval / portTICK_PERIOD_MS);
         
         if (direction) {
