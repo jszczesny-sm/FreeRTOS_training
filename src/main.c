@@ -9,7 +9,7 @@
 #include <intro_tasks.h>
 #include <injection/dummy_injector.h>
 
-static intro_tasks* tasks_holder;
+static intro_tasks *tasks_holder;
 static injector_driver my_first_injector;
 
 int main(void)

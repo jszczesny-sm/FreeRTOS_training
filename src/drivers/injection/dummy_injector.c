@@ -9,8 +9,8 @@
 static int dummy_injector_initialize(void*);
 static int dummy_injector_start(void*);
 static int dummy_injector_stop (void*);
-static int dummy_injector_set_parameter(injector_config* param,void*);
-static int dummy_injector_get_parameter(injector_config* param,void*);
+static int dummy_injector_set_parameter(injector_config *param,void*);
+static int dummy_injector_get_parameter(injector_config *param,void*);
 static long dummy_injector_get_total_open_time(void*);
 static void initialize_timer(void);
 
@@ -36,7 +36,7 @@ static injector_drv_functions dummy_functions = {
     .get_parameter = dummy_injector_get_parameter
 };
 
-static void dummy_injector_task(void* parameter)
+static void dummy_injector_task(void *parameter)
 {
     injector_driver* inj = (injector_driver*) parameter;
 
@@ -46,7 +46,7 @@ static void dummy_injector_task(void* parameter)
     }
 }
 
-int dummy_injector_create(injector_driver* drv, int sample_config)
+int dummy_injector_create(injector_driver *drv, int sample_config)
 {
     int ret = 0;
     dummy_injector_prv* private_data = (dummy_injector_prv*) drv->prvData;
@@ -69,7 +69,7 @@ int dummy_injector_create(injector_driver* drv, int sample_config)
 }
 
 
-void dummy_injector_step(injector_driver* drv)
+void dummy_injector_step(injector_driver *drv)
 {
     dummy_injector_prv* private_data = (dummy_injector_prv*) drv->prvData;
 
@@ -107,7 +107,7 @@ static void initialize_timer()
     timer_enable_counter(TIM15);
 }
 
-static int dummy_injector_initialize(void* prvData)
+static int dummy_injector_initialize(void *prvData)
 {
     UNUSED(prvData);
 
@@ -121,7 +121,7 @@ static int dummy_injector_initialize(void* prvData)
     return 0;
 }
 
-static int dummy_injector_start(void* prvData)
+static int dummy_injector_start(void *prvData)
 {
     UNUSED(prvData);
     return printf("Dummy start\n");
@@ -129,21 +129,13 @@ static int dummy_injector_start(void* prvData)
     return 0;
 }
 
-static int dummy_injector_stop (void* prvData)
+static int dummy_injector_stop (void *prvData)
 {
     UNUSED(prvData);
     return 0;
 }
 
-static int dummy_injector_set_parameter(injector_config* param, void* prvData)
-{
-    UNUSED(param);
-    UNUSED(prvData);
-    
-    return 0;
-}
-
-static int dummy_injector_get_parameter(injector_config* param, void* prvData)
+static int dummy_injector_set_parameter(injector_config *param, void *prvData)
 {
     UNUSED(param);
     UNUSED(prvData);
@@ -151,7 +143,15 @@ static int dummy_injector_get_parameter(injector_config* param, void* prvData)
     return 0;
 }
 
-static long dummy_injector_get_total_open_time(void* prvData)
+static int dummy_injector_get_parameter(injector_config *param, void *prvData)
+{
+    UNUSED(param);
+    UNUSED(prvData);
+    
+    return 0;
+}
+
+static long dummy_injector_get_total_open_time(void *prvData)
 {
     return ((dummy_injector_prv*)prvData)->initial_open_time;
 }

@@ -1,7 +1,7 @@
 #include <drivers/injection/injector.h>
 #include <stdio.h>
 
-int injector_init(injector_driver* drv)
+int injector_init(injector_driver *drv)
 {
     bool ret = -1;
     if (!drv->is_initialized) {
@@ -18,7 +18,7 @@ int injector_init(injector_driver* drv)
     return ret;
 }
 
-int injector_execute(injector_driver* drv, injector_action action)
+int injector_execute(injector_driver *drv, injector_action action)
 {
     bool ret = 0;
     
@@ -43,12 +43,12 @@ int injector_execute(injector_driver* drv, injector_action action)
     return ret;
 }
 
-int injector_set_parameter(injector_driver* drv, injector_config* param)
+int injector_set_parameter(injector_driver *drv, injector_config *param)
 {
     return drv->functions->set_parameter(param,drv->prvData);
 }
 
-int injector_get_parameter(injector_driver* drv, injector_config* param)
+int injector_get_parameter(injector_driver *drv, injector_config *param)
 {
     return drv->functions->get_parameter(param,drv->prvData);
 }
