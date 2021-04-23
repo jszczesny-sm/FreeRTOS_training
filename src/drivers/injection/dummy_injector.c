@@ -74,8 +74,8 @@ void dummy_injector_step(injector_driver* drv)
     dummy_injector_prv* private_data = (dummy_injector_prv*) drv->prvData;
 
     if (drv->is_running) {
-        printf("Here I do my steps %ld!\n", 
-            ((dummy_injector_prv*)drv)->initial_open_time++);
+        // printf("Here I do my steps %ld!\n", 
+        //     ((dummy_injector_prv*)drv)->initial_open_time++);
         if (++private_data->loop_counter >= HEARTBREAT_PATTERN_LENGTH) {
             private_data->loop_counter = 0;
         }
