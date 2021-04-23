@@ -11,7 +11,7 @@ typedef struct dummy_injector_private {
     int          loop_counter;
 } dummy_injector_prv;
 
-int  dummy_injector_create(injector_driver* drv, int sample_config);
-void dummy_injector_step(injector_driver* drv);
+int  dummy_injector_create(injector_driver *drv, int sample_config);
+void dummy_injector_step(injector_driver *drv);
 
 #endif

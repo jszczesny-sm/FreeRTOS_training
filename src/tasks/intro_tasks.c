@@ -7,9 +7,9 @@
 #include <libopencm3/stm32/exti.h>
 #include <libopencm3/stm32/l4/nvic.h>
 
-static void task_producer_run(void* pvParameters);
-static void task_consumer_run(void* pvParameters);
-static void task_async_flasher_run(void* pvParameters);
+static void task_producer_run(void *pvParameters);
+static void task_consumer_run(void *pvParameters);
+static void task_async_flasher_run(void *pvParameters);
 
 static intro_tasks itasks;
 
@@ -24,7 +24,7 @@ void exti15_10_isr()
     }
 }
 
-static void task_producer_run( void * pvParameters )
+static void task_producer_run(void *pvParameters)
 {
     UNUSED(pvParameters);
     uint32_t notifications = 0;
@@ -50,7 +50,7 @@ static void task_producer_run( void * pvParameters )
     }
 }
 
-static void task_consumer_run( void * pvParameters )
+static void task_consumer_run(void *pvParameters)
 {
     UNUSED(pvParameters);
     for( ;; )
@@ -62,7 +62,7 @@ static void task_consumer_run( void * pvParameters )
 }
 
 // MODIFY ME !!
-static void task_async_flasher_run(void* pvParameters)
+static void task_async_flasher_run(void *pvParameters)
 {
     int blinkInteval = 150;
     bool direction = true;
@@ -88,7 +88,7 @@ static void task_async_flasher_run(void* pvParameters)
     }
 }
 
-int create_intro_tasks(intro_tasks** tasks_ptr)
+int create_intro_tasks(intro_tasks **tasks_ptr)
 {
     BaseType_t result = pdPASS;
     int ret = -1;
