@@ -49,7 +49,7 @@ static void dummy_injector_task(void *parameter)
 int dummy_injector_create(injector_driver *drv, int sample_config)
 {
     int ret = 0;
-    dummy_injector_prv* private_data = (dummy_injector_prv*) drv->prvData;
+    dummy_injector_prv* private_data = NULL;
 
     memset(drv->device_name,0x00,HEARTBREAT_PATTERN_LENGTH);
     memcpy(drv->device_name,"Dummy injector",15);
@@ -57,14 +57,18 @@ int dummy_injector_create(injector_driver *drv, int sample_config)
     drv->is_running = false;
     drv->functions = &dummy_functions;
     drv->prvData = pvPortMalloc(sizeof(dummy_injector_prv));
+    private_data = (dummy_injector_prv*) drv->prvData;
 
-    private_data->initial_open_time = sample_config;
-    private_data->loop_counter = 0;
-    xTaskCreate(dummy_injector_task,"InjectorDriver",
-                INJECTOR_TASK_STACK_MEMORY,(void*)drv,
-                tskIDLE_PRIORITY,
-                &private_data->injector_task_handle);
-
+    if (NULL != private_data) {
+        private_data->initial_open_time = sample_config;
+        private_data->loop_counter = 0;
+        xTaskCreate(dummy_injector_task,"InjectorDriver",
+                    INJECTOR_TASK_STACK_MEMORY,(void*)drv,
+                    tskIDLE_PRIORITY,
+                    &private_data->injector_task_handle);
+    } else {
+        ret = -1;
+    }
     return ret;
 }
 
