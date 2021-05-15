@@ -30,21 +30,13 @@ static void task_producer_run(void *pvParameters)
     UNUSED(pvParameters);
     uint32_t notifications = 0;
 
-    rcc_periph_clock_enable(RCC_GPIOC);
-    rcc_periph_clock_enable(RCC_SYSCFG);
-
-    gpio_mode_setup(GPIOC,GPIO_MODE_INPUT,GPIO_PUPD_NONE,GPIO13);
-    exti_select_source(EXTI13,GPIOC);
-    exti_set_trigger(EXTI13,EXTI_TRIGGER_FALLING);
-    exti_enable_request(EXTI13);
-
     nvic_set_priority(NVIC_EXTI15_10_IRQ,128);
     nvic_enable_irq(NVIC_EXTI15_10_IRQ);
 
     for( ;; )
     {
-        xTaskNotifyWait(pdFALSE,0,&notifications,1000 / portTICK_PERIOD_MS);
-        if (notifications == 2) {
+        xTaskNotifyWait(pdFALSE,0,&notifications, CONSUMER_TASK_MAX_WAIT / portTICK_PERIOD_MS);
+        if (notifications == 1) {
             HTS221_run_device(&temp_sensor);
         }
         gpio_toggle(GPIOC,GPIO9);
@@ -61,7 +53,7 @@ static void task_consumer_run(void *pvParameters)
         ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
         temperature = HTS221_get_temperature(&temp_sensor);
         
-        printf("T-Sensor details:\nHT:[%d-->%d]\nLT:[%d-->%d]\n",
+        printf("\nT-Sensor details:\nHT:[%d-->%d]\nLT:[%d-->%d]\n",
                 temp_sensor.T0_deg_C,
                 temp_sensor.T0_OUT,
                 temp_sensor.T1_deg_C,
