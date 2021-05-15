@@ -1,0 +1,8 @@
+As we move forward with creation of the new device, we have to do a lot...:
+
+ - As we started implementation for HTS221, we have to finalize that. In case you did not finish your task during our meeting, please finalize that. What is expected:
+    - Have temperature sensing and humidity sensing avaialble from the HTS221 device (2h extra time expected)
+    - Please design simple restriction within your main state machine, where injection is stopped when temperature is lower than some threshold value (4hour extra time expected)
+    - Please implement one more driver to any of the devices avaialbe onboard. Depending on which device you decided to use, please also use it in your program (4-12 hout extra time expected)
+
+This homework is expected to be finalized by 31th-Mai-2021.
