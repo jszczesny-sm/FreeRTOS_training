@@ -13,13 +13,11 @@
 
 
 #define PRODUCER_TASK_STACK         128     // words
-#define CONSUMER_TASK_STACK         128     
-#define BLINKER_TASK_STACK          128     
+#define CONSUMER_TASK_STACK         128       
 
 typedef struct intro_tasks_t {
     TaskHandle_t producer_handler;
     TaskHandle_t consumer_handler;
-    TaskHandle_t async_flasher_handler;
     bool is_initialized:1;
 } intro_tasks;
 
