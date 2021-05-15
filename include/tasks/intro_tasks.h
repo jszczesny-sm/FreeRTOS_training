@@ -11,6 +11,7 @@
 #define CONSUMER_TASK_PERIOD        140    // milliseconds
 #define CONSUMER_TASK_PERIOD_TICK   (PRODUCER_TASK_PERIOD / portTICK_PERIOD_MS)
 
+#define CONSUMER_TASK_MAX_WAIT      5000
 
 #define PRODUCER_TASK_STACK         128     // words
 #define CONSUMER_TASK_STACK         128       

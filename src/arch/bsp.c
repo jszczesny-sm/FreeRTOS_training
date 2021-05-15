@@ -3,6 +3,7 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/exti.h>
 
 uint32_t SystemCoreClock;
 
@@ -10,6 +11,7 @@ static void configure_flash_memory(void);
 static void configure_system_clock(void);
 static void configure_led_gpios(void);
 static void configure_i2c_gpios(void);
+static void configure_exti_gpios(void);
 
 static void configure_flash_memory()
 {
@@ -68,4 +70,16 @@ void configure_system()
    configure_system_clock();
    configure_led_gpios();
    configure_i2c_gpios();
+   configure_exti_gpios();
+}
+
+static void configure_exti_gpios(void)
+{
+    rcc_periph_clock_enable(RCC_GPIOC);
+    rcc_periph_clock_enable(RCC_SYSCFG);
+
+    gpio_mode_setup(GPIOC,GPIO_MODE_INPUT,GPIO_PUPD_NONE,GPIO13);
+    exti_select_source(EXTI13,GPIOC);
+    exti_set_trigger(EXTI13,EXTI_TRIGGER_FALLING);
+    exti_enable_request(EXTI13);
 }
