@@ -7,13 +7,14 @@
 #include <libopencm3/stm32/exti.h>
 #include <libopencm3/stm32/l4/nvic.h>
 
+#include <drivers/i2c/hts221.h>
+
 static void task_producer_run(void *pvParameters);
 static void task_consumer_run(void *pvParameters);
-static void task_async_flasher_run(void *pvParameters);
 
 static intro_tasks itasks;
 
-static volatile int counter;
+extern HTS221_driver_t temp_sensor;
 
 void exti15_10_isr()
 {
@@ -29,7 +30,6 @@ static void task_producer_run(void *pvParameters)
     UNUSED(pvParameters);
     uint32_t notifications = 0;
 
-
     rcc_periph_clock_enable(RCC_GPIOC);
     rcc_periph_clock_enable(RCC_SYSCFG);
 
@@ -43,8 +43,10 @@ static void task_producer_run(void *pvParameters)
 
     for( ;; )
     {
-        xTaskNotifyWait(pdFALSE,0,&notifications,portMAX_DELAY);
-        printf("interrupts %ld\n",notifications);
+        xTaskNotifyWait(pdFALSE,0,&notifications,1000 / portTICK_PERIOD_MS);
+        if (notifications == 2) {
+            HTS221_run_device(&temp_sensor);
+        }
         gpio_toggle(GPIOC,GPIO9);
         xTaskNotifyGive(itasks.consumer_handler);
     }
@@ -52,39 +54,22 @@ static void task_producer_run(void *pvParameters)
 
 static void task_consumer_run(void *pvParameters)
 {
+    int16_t temperature = 0x00;
     UNUSED(pvParameters);
     for( ;; )
     {
         ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-        vTaskDelay(CONSUMER_TASK_PERIOD_TICK);
-        printf("I am alive\n");
-    }
-}
-
-// MODIFY ME !!
-static void task_async_flasher_run(void *pvParameters)
-{
-    int blinkInteval = 150;
-    bool direction = true;
-    UNUSED(pvParameters);
-    
-    for ( ;; ) 
-    {
-        gpio_toggle(GPIOA,GPIO5);
-        vTaskDelay(blinkInteval / portTICK_PERIOD_MS);
+        temperature = HTS221_get_temperature(&temp_sensor);
         
-        if (direction) {
-            blinkInteval += 5;
-            if (blinkInteval > 250) {
-                direction = false;
-            }
-        } else {
-            blinkInteval -= 5;
-            if (blinkInteval < 20) {
-                direction = true;
-            }
-        }
+        printf("T-Sensor details:\nHT:[%d-->%d]\nLT:[%d-->%d]\n",
+                temp_sensor.T0_deg_C,
+                temp_sensor.T0_OUT,
+                temp_sensor.T1_deg_C,
+                temp_sensor.T1_OUT);
 
+        printf("Temperature ADC: %d\n",temperature);
+        printf("Humidity: (??)\n\n");
+        
     }
 }
 
@@ -102,11 +87,6 @@ int create_intro_tasks(intro_tasks **tasks_ptr)
                        CONSUMER_TASK_STACK,NULL,
                        tskIDLE_PRIORITY,
                        &itasks.consumer_handler);
-
-    result &= xTaskCreate(task_async_flasher_run,"Flasher",
-                       CONSUMER_TASK_STACK,NULL,
-                       tskIDLE_PRIORITY,
-                       &itasks.async_flasher_handler);
 
     if (pdPASS == result) {
         *tasks_ptr = &itasks;

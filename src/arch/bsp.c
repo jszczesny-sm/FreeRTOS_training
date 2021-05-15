@@ -9,6 +9,7 @@ uint32_t SystemCoreClock;
 static void configure_flash_memory(void);
 static void configure_system_clock(void);
 static void configure_led_gpios(void);
+static void configure_i2c_gpios(void);
 
 static void configure_flash_memory()
 {
@@ -51,9 +52,20 @@ static void configure_led_gpios()
    gpio_mode_setup(GPIOC,GPIO_MODE_OUTPUT,GPIO_PUPD_NONE,GPIO9); 
 }
 
+static void configure_i2c_gpios()
+{
+   // configure I2C2 bus
+   rcc_periph_clock_enable(RCC_GPIOB);
+   gpio_mode_setup(GPIOB,GPIO_MODE_AF,GPIO_PUPD_NONE,GPIO10);
+   gpio_mode_setup(GPIOB,GPIO_MODE_AF,GPIO_PUPD_NONE,GPIO11);
+   gpio_set_af(GPIOB,GPIO_AF4,GPIO10);
+   gpio_set_af(GPIOB,GPIO_AF4,GPIO11);
+}
+
 void configure_system()
 {
    configure_flash_memory();
    configure_system_clock();
    configure_led_gpios();
+   configure_i2c_gpios();
 }
