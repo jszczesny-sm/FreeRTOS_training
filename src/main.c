@@ -34,7 +34,7 @@ int main(void)
     ret = create_intro_tasks(&tasks_holder);
     if (ret < 0)    
         goto ERR;
-
+    
     ret = create_app_tasks(&app_holder);
     if (ret < 0)
         goto ERR;
