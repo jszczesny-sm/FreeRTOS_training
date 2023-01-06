@@ -4,6 +4,9 @@
         "gpio.h": "c",
         "freertos.h": "c",
         "task.h": "c",
-        "semphr.h": "c"
+        "semphr.h": "c",
+        "dummy_injector.h": "c",
+        "flash.h": "c",
+        "bsp.h": "c"
     }
 }
